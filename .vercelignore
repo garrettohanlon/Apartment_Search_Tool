@@ -1,0 +1,14 @@
+# The Python agent never runs on Vercel; it runs on the machine that has the
+# credentials and the launchd schedule. Only the UI needs deploying.
+*.py
+run.sh
+install.sh
+uninstall.sh
+prompt.md
+watchlist.json
+profile.json
+profile.example.json
+UI-SPEC.md
+legacy-ui/
+data/
+logs/

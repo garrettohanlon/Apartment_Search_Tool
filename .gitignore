@@ -1,8 +1,17 @@
+# agent run artifacts
 logs/
 data/
 profile.json
 *.bak
 .DS_Store
+
+# next / node
 node_modules/
 .next/
 out/
+next-env.d.ts
+*.tsbuildinfo
+.vercel
+.env*.local
+
+.env.publish

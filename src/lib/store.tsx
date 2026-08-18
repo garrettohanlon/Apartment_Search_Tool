@@ -124,7 +124,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     (async () => {
       const injected = (globalThis as { __AW_DATA__?: Dataset }).__AW_DATA__;
       if (injected) { setData(injected); setDemo(!!injected.demo); setLoading(false); return; }
-      for (const url of ['./inventory-latest.json', '/inventory-latest.json']) {
+      // /api/inventory first: on Vercel that serves whatever the agent last
+      // published, so a new run appears without a redeploy. The static paths are
+      // the local fallbacks for a filesystem or self-hosted copy.
+      for (const url of ['/api/inventory', './inventory-latest.json', '/inventory-latest.json']) {
         try {
           const r = await fetch(url, { cache: 'no-store' });
           if (!r.ok) continue;

@@ -73,8 +73,17 @@ python3 "$SCRIPT_DIR/record.py" "$DATE" >> "$LOG_FILE" 2>&1 || true
 # (a script-tag copy, because Chrome blocks fetch() on file:// URLs).
 python3 "$SCRIPT_DIR/build_inventory.py" "$DATE" "$OUTPUT_DIR" >> "$LOG_FILE" 2>&1 || \
   echo "WARNING: build_inventory.py failed; the Live Inventory tab will show no data." >> "$LOG_FILE"
-cp "$SCRIPT_DIR/app/index.html" "$SCRIPT_DIR/app/app.js" "$SCRIPT_DIR/app/styles.css" \
+cp "$SCRIPT_DIR/legacy-ui/index.html" "$SCRIPT_DIR/legacy-ui/app.js" "$SCRIPT_DIR/legacy-ui/styles.css" \
    "$OUTPUT_DIR"/ 2>>"$LOG_FILE" || echo "WARNING: could not stage the app files." >> "$LOG_FILE"
+
+# --- 3c. publish to the deployed UI, if configured -----------------------------------
+# Only fires when DEPLOY_URL and INGEST_SECRET are available; otherwise skipped
+# silently so a purely local setup is unaffected.
+if [ -f "$SCRIPT_DIR/.env.publish" ] || [ -n "${DEPLOY_URL:-}" ]; then
+  bash "$SCRIPT_DIR/publish.sh" "$DATE" >> "$LOG_FILE" 2>&1 \
+    && echo "Published to the deployed UI." >> "$LOG_FILE" \
+    || echo "WARNING: publish step failed; the local artifact is still fine." >> "$LOG_FILE"
+fi
 
 # --- 4. post-processing --------------------------------------------------------------
 if [ -f "$HTML_PATH" ]; then
