@@ -1,0 +1,42 @@
+{
+  "_comment": [
+    "Copy this to profile.json and fill in your own values. profile.json is gitignored,",
+    "so nothing personal is ever committed. Everything that used to be hardcoded in",
+    "prepare.py, prompt.md, run.sh and watchlist.json now reads from here."
+  ],
+
+  "search": {
+    "beds": 2,
+    "min_sf_hard_floor": 1000,
+    "target_sf": 1200,
+    "rent_min": 3000,
+    "rent_max": 7000,
+    "rent_stretch_max": 8000,
+    "size_rule": "The hard floor is a hard minimum, not a preference. Confirmed-smaller units are excluded and logged. Units with no published square footage are reported separately as size-unconfirmed, never silently dropped and never estimated as fact."
+  },
+
+  "qualifying": {
+    "_comment": "Used to flag listings you cannot clear on your own income, and to explain why. Set annual_income to 0 to disable this entirely.",
+    "annual_income": 0,
+    "income_multiple": 40,
+    "extra_income_sources": [],
+    "notes": ""
+  },
+
+  "tenant_context": {
+    "_comment": "Free text spliced into the agent's context block at runtime. This is where anything personal belongs: it lands only in data/, which is gitignored. Leave empty if you do not want the agent to know anything about you.",
+    "profile_note": "",
+    "protected_class_note": "",
+    "exclude_income_restricted": true
+  },
+
+  "paths": {
+    "_comment": "Leave output_root null to default to $HOME/Desktop/Claude Work Flows/NYC Apartment Watch.",
+    "output_root": null
+  },
+
+  "schedule": {
+    "_comment": "Informational only. The actual schedule lives in the launchd plist.",
+    "daily_at": "08:00"
+  }
+}

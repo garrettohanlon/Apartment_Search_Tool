@@ -1,0 +1,8 @@
+logs/
+data/
+profile.json
+*.bak
+.DS_Store
+node_modules/
+.next/
+out/
